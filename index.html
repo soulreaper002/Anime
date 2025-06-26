@@ -189,7 +189,7 @@
             transform: scale(1.2) rotate(10deg);
         }
 
-        .floating-hearts {
+        .floating-elements {
             position: fixed;
             top: 0;
             left: 0;
@@ -199,11 +199,27 @@
             z-index: -1;
         }
 
-        .heart {
+        .floating-item {
             position: absolute;
-            color: rgba(255, 154, 158, 0.3);
             font-size: 20px;
-            animation: floatHeart 15s infinite linear;
+            animation: floatUp 15s infinite linear;
+        }
+
+        .balloon {
+            color: rgba(255, 100, 150, 0.7);
+            animation: floatBalloon 20s infinite linear;
+        }
+
+        .confetti {
+            color: rgba(255, 200, 100, 0.8);
+        }
+
+        .cake-emoji {
+            color: rgba(255, 150, 200, 0.6);
+        }
+
+        .gift-emoji {
+            color: rgba(150, 255, 200, 0.6);
         }
 
         .special-moment {
@@ -242,7 +258,7 @@
             }
         }
 
-        @keyframes floatHeart {
+        @keyframes floatUp {
             0% {
                 transform: translateY(100vh) rotate(0deg);
                 opacity: 0;
@@ -256,6 +272,159 @@
             100% {
                 transform: translateY(-100px) rotate(360deg);
                 opacity: 0;
+            }
+        }
+
+        @keyframes floatBalloon {
+            0% {
+                transform: translateY(100vh) rotate(0deg) scale(1);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            50% {
+                transform: translateY(50vh) rotate(180deg) scale(1.2);
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg) scale(0.8);
+                opacity: 0;
+            }
+        }
+
+        .birthday-banner {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(45deg, #ff6b6b, #ffd93d, #6bcf7f, #4ecdc4, #45b7d1);
+            background-size: 200% 200%;
+            animation: rainbowMove 3s ease-in-out infinite;
+            color: white;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 1.2rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            z-index: 1000;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        @keyframes rainbowMove {
+            0%, 100% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        .birthday-surprise {
+            text-align: center;
+            margin: 40px 0;
+            padding: 30px;
+            background: linear-gradient(135deg, #ff9a9e, #fecfef);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .birthday-surprise::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+            animation: sparkleRotate 4s linear infinite;
+        }
+
+        @keyframes sparkleRotate {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .birthday-surprise h2 {
+            color: white;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            position: relative;
+            z-index: 2;
+        }
+
+        .birthday-wish {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 25px;
+            border-radius: 15px;
+            margin: 20px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            position: relative;
+            z-index: 2;
+        }
+
+        .birthday-wish h3 {
+            color: #ff6b6b;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        .cake-animation {
+            font-size: 4rem;
+            animation: cakeBounce 2s ease-in-out infinite;
+            margin: 20px 0;
+        }
+
+        @keyframes cakeBounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-10px);
+            }
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+
+        .candles {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .candle {
+            font-size: 2rem;
+            animation: flicker 1.5s ease-in-out infinite alternate;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .candle:hover {
+            transform: scale(1.2);
+        }
+
+        .candle.blown {
+            animation: none;
+            opacity: 0.3;
+        }
+
+        @keyframes flicker {
+            0% {
+                text-shadow: 0 0 5px #ff6b6b, 0 0 10px #ff6b6b, 0 0 15px #ff6b6b;
+            }
+            100% {
+                text-shadow: 0 0 2px #ff6b6b, 0 0 5px #ff6b6b, 0 0 8px #ff6b6b;
             }
         }
 
@@ -294,19 +463,42 @@
     </style>
 </head>
 <body>
-    <div class="floating-hearts" id="floatingHearts"></div>
+    <div class="birthday-banner">
+        🎉 HAPPY BIRTHDAY BEAUTIFUL! 🎂
+    </div>
+
+    <div class="floating-elements" id="floatingElements"></div>
     
     <div class="hero">
-        <h1>Our Beautiful Journey</h1>
-        <p>Every moment with you has been a treasure ✨</p>
+        <h1>🎂 Our Beautiful Journey 🎂</h1>
+        <p>Every moment with you has been a treasure ✨ Today we celebrate YOU! 🎉</p>
     </div>
 
     <div class="timeline-container">
+        <div class="birthday-surprise">
+            <h2>🎈 Happy Birthday My Love! 🎈</h2>
+            <div class="cake-animation">🎂</div>
+            <div class="candles">
+                <span class="candle" onclick="blowCandle(this)">🕯️</span>
+                <span class="candle" onclick="blowCandle(this)">🕯️</span>
+                <span class="candle" onclick="blowCandle(this)">🕯️</span>
+                <span class="candle" onclick="blowCandle(this)">🕯️</span>
+                <span class="candle" onclick="blowCandle(this)">🕯️</span>
+            </div>
+            <div class="birthday-wish">
+                <h3>🌟 My Birthday Wish For You 🌟</h3>
+                <p>May this new year of your life be filled with endless laughter, boundless joy, and all the love your beautiful heart can hold. You deserve every wonderful thing this world has to offer! 💕</p>
+            </div>
+            <div class="birthday-wish">
+                <h3>🎁 What You Mean To Me 🎁</h3>
+                <p>You're not just my girlfriend - you're my best friend, my adventure buddy, my comfort on hard days, and my biggest source of happiness. Thank you for being the incredible woman you are! 🥰</p>
+            </div>
+        </div>
         <div class="timeline">
             <div class="memory-item" style="animation-delay: 0.2s">
                 <div class="memory-card">
                     <div class="timeline-dot"></div>
-                    <div class="memory-date">March 15, 2022</div>
+                    <div class="memory-date">March 15, 2023</div>
                     <div class="memory-title">The Day We First Met</div>
                     <div class="memory-description">
                         Remember that coffee shop on 5th Street? You ordered a lavender latte and I was too nervous to even remember what I got. Your laugh when I spilled sugar everywhere - that's when I knew you were special.
@@ -384,42 +576,140 @@
             <div class="memory-item" style="animation-delay: 1.4s">
                 <div class="memory-card special-moment">
                     <div class="timeline-dot"></div>
-                    <div class="memory-date">Today - Your Birthday! 🎂</div>
-                    <div class="memory-title">Another Year of You</div>
+                    <div class="memory-date">Today - Your Special Day! 🎂</div>
+                    <div class="memory-title">🎉 Another Year of Amazing You! 🎉</div>
                     <div class="memory-description">
-                        Every day with you is a gift, but today we celebrate the amazing person you are. Thank you for filling my life with laughter, love, and countless beautiful memories. Here's to many more adventures together!
+                        Every day with you is a gift, but today we celebrate the amazing person you are! Thank you for filling my life with laughter, love, and countless beautiful memories. Here's to another year of adventures, inside jokes, and growing even more in love! 🎈🎁
                     </div>
-                    <div class="memory-photo">Happy Birthday, Beautiful! 🎉</div>
-                    <span class="music-note" onclick="playMemorySound()" title="Play our song">🎵</span>
+                    <div class="memory-photo">🎂 Happy Birthday, Beautiful! 🎂</div>
+                    <span class="music-note" onclick="playBirthdaySound()" title="Play birthday tune">🎵</span>
                 </div>
+            </div>
+        </div>
+
+        <div class="birthday-surprise">
+            <h2>🎊 Birthday Surprise Messages 🎊</h2>
+            <div class="birthday-wish">
+                <h3>🌈 For Your New Year Ahead 🌈</h3>
+                <p>I can't wait to create more beautiful memories with you. More adventures to new places, more lazy Sunday mornings, more dancing in the kitchen, and more reasons to fall in love with you every single day! 💖</p>
+            </div>
+            <div class="birthday-wish">
+                <h3>🦋 What Makes You Special 🦋</h3>
+                <p>Your kindness touches everyone around you. Your laugh is the most beautiful sound I know. Your passion for life inspires me daily. Your love makes me a better person. Happy birthday to the most wonderful woman in the world! 🌟</p>
+            </div>
+            <div class="birthday-wish">
+                <h3>🎯 Birthday Promise 🎯</h3>
+                <p>I promise to keep making you smile, to support your dreams, to bring you coffee in bed, and to love you more fiercely with each passing day. This is your year to shine even brighter! ✨</p>
             </div>
         </div>
     </div>
 
     <div class="footer">
-        <p>Made with <span class="heart-emoji">❤️</span> for the most amazing woman in the world</p>
-        <p>Happy Birthday, my love!</p>
+        <p>Made with <span class="heart-emoji">💖</span> for the most amazing woman in the world</p>
+        <p>🎂 Happy Birthday, my love! Here's to another year of being absolutely incredible! 🎂</p>
+        <p>🎈🎉🎁 May all your birthday wishes come true! 🎁🎉🎈</p>
     </div>
 
     <script>
-        // Create floating hearts
-        function createFloatingHeart() {
-            const heart = document.createElement('div');
-            heart.className = 'heart';
-            heart.innerHTML = '❤️';
-            heart.style.left = Math.random() * 100 + '%';
-            heart.style.animationDuration = (Math.random() * 10 + 10) + 's';
-            heart.style.fontSize = (Math.random() * 10 + 15) + 'px';
+        // Create floating birthday elements
+        function createFloatingElement() {
+            const elements = ['🎈', '🎂', '🎁', '🎉', '🎊', '✨', '🌟', '💖', '🦋', '🌸'];
+            const element = document.createElement('div');
+            element.className = 'floating-item';
             
-            document.getElementById('floatingHearts').appendChild(heart);
+            const randomElement = elements[Math.floor(Math.random() * elements.length)];
+            element.innerHTML = randomElement;
+            
+            // Add specific classes for different animations
+            if (randomElement === '🎈') {
+                element.classList.add('balloon');
+            } else if (['🎉', '🎊'].includes(randomElement)) {
+                element.classList.add('confetti');
+            } else if (randomElement === '🎂') {
+                element.classList.add('cake-emoji');
+            } else if (randomElement === '🎁') {
+                element.classList.add('gift-emoji');
+            }
+            
+            element.style.left = Math.random() * 100 + '%';
+            element.style.animationDuration = (Math.random() * 10 + 10) + 's';
+            element.style.fontSize = (Math.random() * 15 + 20) + 'px';
+            
+            document.getElementById('floatingElements').appendChild(element);
             
             setTimeout(() => {
-                heart.remove();
-            }, 15000);
+                element.remove();
+            }, 20000);
         }
 
-        // Create hearts periodically
-        setInterval(createFloatingHeart, 3000);
+        // Create elements periodically
+        setInterval(createFloatingElement, 2000);
+
+        // Blow out candles function
+        function blowCandle(candle) {
+            candle.classList.add('blown');
+            candle.innerHTML = '💨';
+            
+            // Create smoke effect
+            const smoke = document.createElement('div');
+            smoke.style.position = 'absolute';
+            smoke.style.top = '-20px';
+            smoke.style.left = '50%';
+            smoke.style.transform = 'translateX(-50%)';
+            smoke.style.fontSize = '1rem';
+            smoke.style.opacity = '0.7';
+            smoke.style.animation = 'fadeInUp 2s ease-out forwards';
+            smoke.innerHTML = '💨';
+            
+            candle.style.position = 'relative';
+            candle.appendChild(smoke);
+            
+            setTimeout(() => {
+                smoke.remove();
+            }, 2000);
+            
+            // Check if all candles are blown
+            const allCandles = document.querySelectorAll('.candle');
+            const blownCandles = document.querySelectorAll('.candle.blown');
+            
+            if (allCandles.length === blownCandles.length) {
+                setTimeout(() => {
+                    createBirthdayCelebration();
+                }, 1000);
+            }
+        }
+
+        // Birthday celebration when all candles are blown
+        function createBirthdayCelebration() {
+            const celebration = document.createElement('div');
+            celebration.style.position = 'fixed';
+            celebration.style.top = '50%';
+            celebration.style.left = '50%';
+            celebration.style.transform = 'translate(-50%, -50%)';
+            celebration.style.fontSize = '3rem';
+            celebration.style.zIndex = '9999';
+            celebration.style.animation = 'fadeInUp 2s ease-out forwards';
+            celebration.innerHTML = '🎉 WISH GRANTED! 🎉';
+            celebration.style.color = '#ff6b6b';
+            celebration.style.textShadow = '2px 2px 4px rgba(0,0,0,0.3)';
+            celebration.style.background = 'rgba(255, 255, 255, 0.9)';
+            celebration.style.padding = '20px';
+            celebration.style.borderRadius = '20px';
+            celebration.style.boxShadow = '0 10px 30px rgba(0,0,0,0.2)';
+            
+            document.body.appendChild(celebration);
+            
+            // Create extra confetti burst
+            for (let i = 0; i < 20; i++) {
+                setTimeout(() => {
+                    createFloatingElement();
+                }, i * 100);
+            }
+            
+            setTimeout(() => {
+                celebration.remove();
+            }, 3000);
+        }
 
         // Memory card interactions
         document.querySelectorAll('.memory-card').forEach(card => {
@@ -444,25 +734,39 @@
             });
         });
 
-        // Play memory sound
-        function playMemorySound() {
-            // Create a simple audio context for a pleasant chime
+        // Play birthday sound
+        function playBirthdaySound() {
             if (typeof AudioContext !== 'undefined' || typeof webkitAudioContext !== 'undefined') {
                 const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-                const oscillator = audioContext.createOscillator();
-                const gainNode = audioContext.createGain();
                 
-                oscillator.connect(gainNode);
-                gainNode.connect(audioContext.destination);
+                // Play "Happy Birthday" melody
+                const notes = [
+                    { freq: 261.63, duration: 0.3 }, // C
+                    { freq: 261.63, duration: 0.15 }, // C
+                    { freq: 293.66, duration: 0.45 }, // D
+                    { freq: 261.63, duration: 0.45 }, // C
+                    { freq: 349.23, duration: 0.45 }, // F
+                    { freq: 329.63, duration: 0.9 }   // E
+                ];
                 
-                oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
-                oscillator.frequency.exponentialRampToValueAtTime(600, audioContext.currentTime + 0.3);
+                let currentTime = audioContext.currentTime;
                 
-                gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
-                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
-                
-                oscillator.start(audioContext.currentTime);
-                oscillator.stop(audioContext.currentTime + 0.3);
+                notes.forEach(note => {
+                    const oscillator = audioContext.createOscillator();
+                    const gainNode = audioContext.createGain();
+                    
+                    oscillator.connect(gainNode);
+                    gainNode.connect(audioContext.destination);
+                    
+                    oscillator.frequency.setValueAtTime(note.freq, currentTime);
+                    gainNode.gain.setValueAtTime(0.3, currentTime);
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, currentTime + note.duration);
+                    
+                    oscillator.start(currentTime);
+                    oscillator.stop(currentTime + note.duration);
+                    
+                    currentTime += note.duration;
+                });
             }
         }
 
@@ -486,10 +790,10 @@
 
         // Initialize
         document.addEventListener('DOMContentLoaded', function() {
-            // Add initial sparkles
+            // Add initial birthday elements
             setTimeout(() => {
-                for (let i = 0; i < 5; i++) {
-                    setTimeout(createFloatingHeart, i * 1000);
+                for (let i = 0; i < 10; i++) {
+                    setTimeout(createFloatingElement, i * 500);
                 }
             }, 1000);
         });
