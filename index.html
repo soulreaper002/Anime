@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Beautiful Journey Together</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 60px 20px;
+            color: white;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            animation: fadeInUp 1s ease-out 0.5s both;
+        }
+
+        .timeline-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            position: relative;
+        }
+
+        .timeline {
+            position: relative;
+            padding: 20px 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(to bottom, #ff9a9e, #fecfef, #fecfef, #ff9a9e);
+            transform: translateX(-50%);
+            border-radius: 2px;
+            box-shadow: 0 0 20px rgba(255, 154, 158, 0.5);
+        }
+
+        .memory-item {
+            position: relative;
+            margin: 60px 0;
+            opacity: 0;
+            transform: translateY(50px);
+            animation: slideInUp 0.8s ease-out forwards;
+        }
+
+        .memory-item:nth-child(odd) {
+            text-align: right;
+            padding-right: 60%;
+        }
+
+        .memory-item:nth-child(even) {
+            text-align: left;
+            padding-left: 60%;
+        }
+
+        .memory-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .memory-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .memory-card:hover::before {
+            left: 100%;
+        }
+
+        .memory-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+        }
+
+        .memory-date {
+            color: #667eea;
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+        }
+
+        .memory-title {
+            font-size: 1.8rem;
+            color: #333;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .memory-description {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .memory-photo {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(45deg, #ff9a9e, #fecfef);
+            border-radius: 15px;
+            margin: 15px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .memory-photo::after {
+            content: '📸';
+            font-size: 2rem;
+            opacity: 0.7;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: #ff9a9e;
+            border: 4px solid white;
+            border-radius: 50%;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 0 4px rgba(255, 154, 158, 0.3);
+            animation: pulse 2s infinite;
+        }
+
+        .memory-item:nth-child(odd) .timeline-dot {
+            left: calc(50% + 60px);
+        }
+
+        .memory-item:nth-child(even) .timeline-dot {
+            left: calc(50% - 60px);
+        }
+
+        .music-note {
+            display: inline-block;
+            margin-left: 10px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .music-note:hover {
+            transform: scale(1.2) rotate(10deg);
+        }
+
+        .floating-hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .heart {
+            position: absolute;
+            color: rgba(255, 154, 158, 0.3);
+            font-size: 20px;
+            animation: floatHeart 15s infinite linear;
+        }
+
+        .special-moment {
+            border: 3px solid #ff9a9e;
+            box-shadow: 0 0 30px rgba(255, 154, 158, 0.4);
+        }
+
+        .special-moment .memory-title {
+            color: #ff9a9e;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                box-shadow: 0 0 0 4px rgba(255, 154, 158, 0.3);
+            }
+            50% {
+                box-shadow: 0 0 0 8px rgba(255, 154, 158, 0.1);
+            }
+        }
+
+        @keyframes floatHeart {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .footer {
+            text-align: center;
+            padding: 60px 20px;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        .footer .heart-emoji {
+            font-size: 2rem;
+            animation: pulse 1.5s infinite;
+            margin: 0 10px;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .memory-item:nth-child(odd),
+            .memory-item:nth-child(even) {
+                padding: 0 20px;
+                text-align: left;
+            }
+            
+            .timeline::before {
+                left: 30px;
+            }
+            
+            .timeline-dot {
+                left: 30px !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-hearts" id="floatingHearts"></div>
+    
+    <div class="hero">
+        <h1>Our Beautiful Journey</h1>
+        <p>Every moment with you has been a treasure ✨</p>
+    </div>
+
+    <div class="timeline-container">
+        <div class="timeline">
+            <div class="memory-item" style="animation-delay: 0.2s">
+                <div class="memory-card">
+                    <div class="timeline-dot"></div>
+                    <div class="memory-date">March 15, 2022</div>
+                    <div class="memory-title">The Day We First Met</div>
+                    <div class="memory-description">
+                        Remember that coffee shop on 5th Street? You ordered a lavender latte and I was too nervous to even remember what I got. Your laugh when I spilled sugar everywhere - that's when I knew you were special.
+                    </div>
+                    <div class="memory-photo">Our first coffee together</div>
+                    <span class="music-note" onclick="playMemorySound()" title="Play our song">🎵</span>
+                </div>
+            </div>
+
+            <div class="memory-item" style="animation-delay: 0.4s">
+                <div class="memory-card">
+                    <div class="timeline-dot"></div>
+                    <div class="memory-date">April 2, 2023</div>
+                    <div class="memory-title">Our First Real Date</div>
+                    <div class="memory-description">
+                        The botanical garden was perfect. You wore that blue dress that made your eyes sparkle even more than usual. We spent hours walking and talking, and I knew I was falling for you when you stopped to photograph every single flower.
+                    </div>
+                    <div class="memory-photo">Walking through the garden</div>
+                    <span class="music-note" onclick="playMemorySound()" title="Play our song">🎵</span>
+                </div>
+            </div>
+
+            <div class="memory-item" style="animation-delay: 0.6s">
+                <div class="memory-card special-moment">
+                    <div class="timeline-dot"></div>
+                    <div class="memory-date">May 20, 2023</div>
+                    <div class="memory-title">I Love You ❤️</div>
+                    <div class="memory-description">
+                        Under the stars at Riverside Park. You were pointing out constellations (making half of them up, I'm sure) and it just slipped out. "I love you." The way you smiled and whispered it back - pure magic.
+                    </div>
+                    <div class="memory-photo">Our first "I love you"</div>
+                    <span class="music-note" onclick="playMemorySound()" title="Play our song">🎵</span>
+                </div>
+            </div>
+
+            <div class="memory-item" style="animation-delay: 0.8s">
+                <div class="memory-card">
+                    <div class="timeline-dot"></div>
+                    <div class="memory-date">July 4, 2023</div>
+                    <div class="memory-title">Weekend Getaway</div>
+                    <div class="memory-description">
+                        Our first trip together to the mountains. You packed enough snacks for a week-long expedition, and I loved how you insisted on taking the scenic route. Dancing in the cabin kitchen to old jazz records at 2 AM.
+                    </div>
+                    <div class="memory-photo">Mountain cabin adventures</div>
+                    <span class="music-note" onclick="playMemorySound()" title="Play our song">🎵</span>
+                </div>
+            </div>
+
+            <div class="memory-item" style="animation-delay: 1.0s">
+                <div class="memory-card">
+                    <div class="timeline-dot"></div>
+                    <div class="memory-date">September 12, 2023</div>
+                    <div class="memory-title">Moving In Together</div>
+                    <div class="memory-description">
+                        The great apartment hunt of 2023! You insisted on testing the shower pressure in every place we looked at. When we found "the one," we both knew it instantly. Home isn't a place - it's wherever you are.
+                    </div>
+                    <div class="memory-photo">Our cozy new home</div>
+                    <span class="music-note" onclick="playMemorySound()" title="Play our song">🎵</span>
+                </div>
+            </div>
+
+            <div class="memory-item" style="animation-delay: 1.2s">
+                <div class="memory-card">
+                    <div class="timeline-dot"></div>
+                    <div class="memory-date">December 25, 2023</div>
+                    <div class="memory-title">First Christmas Together</div>
+                    <div class="memory-description">
+                        You cried happy tears when you opened the vintage camera I got you. Then you spent the entire day taking photos of our perfectly imperfect gingerbread house. Your joy is infectious and makes everything brighter.
+                    </div>
+                    <div class="memory-photo">Christmas morning magic</div>
+                    <span class="music-note" onclick="playMemorySound()" title="Play our song">🎵</span>
+                </div>
+            </div>
+
+            <div class="memory-item" style="animation-delay: 1.4s">
+                <div class="memory-card special-moment">
+                    <div class="timeline-dot"></div>
+                    <div class="memory-date">Today - Your Birthday! 🎂</div>
+                    <div class="memory-title">Another Year of You</div>
+                    <div class="memory-description">
+                        Every day with you is a gift, but today we celebrate the amazing person you are. Thank you for filling my life with laughter, love, and countless beautiful memories. Here's to many more adventures together!
+                    </div>
+                    <div class="memory-photo">Happy Birthday, Beautiful! 🎉</div>
+                    <span class="music-note" onclick="playMemorySound()" title="Play our song">🎵</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>Made with <span class="heart-emoji">❤️</span> for the most amazing woman in the world</p>
+        <p>Happy Birthday, my love!</p>
+    </div>
+
+    <script>
+        // Create floating hearts
+        function createFloatingHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + '%';
+            heart.style.animationDuration = (Math.random() * 10 + 10) + 's';
+            heart.style.fontSize = (Math.random() * 10 + 15) + 'px';
+            
+            document.getElementById('floatingHearts').appendChild(heart);
+            
+            setTimeout(() => {
+                heart.remove();
+            }, 15000);
+        }
+
+        // Create hearts periodically
+        setInterval(createFloatingHeart, 3000);
+
+        // Memory card interactions
+        document.querySelectorAll('.memory-card').forEach(card => {
+            card.addEventListener('click', function() {
+                // Add sparkle effect
+                const sparkles = ['✨', '💫', '⭐', '🌟'];
+                const sparkle = document.createElement('div');
+                sparkle.style.position = 'absolute';
+                sparkle.style.top = '50%';
+                sparkle.style.left = '50%';
+                sparkle.style.transform = 'translate(-50%, -50%)';
+                sparkle.style.fontSize = '2rem';
+                sparkle.style.pointerEvents = 'none';
+                sparkle.style.animation = 'fadeInUp 1s ease-out forwards';
+                sparkle.innerHTML = sparkles[Math.floor(Math.random() * sparkles.length)];
+                
+                this.appendChild(sparkle);
+                
+                setTimeout(() => {
+                    sparkle.remove();
+                }, 1000);
+            });
+        });
+
+        // Play memory sound
+        function playMemorySound() {
+            // Create a simple audio context for a pleasant chime
+            if (typeof AudioContext !== 'undefined' || typeof webkitAudioContext !== 'undefined') {
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                
+                oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
+                oscillator.frequency.exponentialRampToValueAtTime(600, audioContext.currentTime + 0.3);
+                
+                gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
+                
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + 0.3);
+            }
+        }
+
+        // Scroll animation trigger
+        function handleScrollAnimation() {
+            const memoryItems = document.querySelectorAll('.memory-item');
+            const windowHeight = window.innerHeight;
+            
+            memoryItems.forEach(item => {
+                const elementTop = item.getBoundingClientRect().top;
+                
+                if (elementTop < windowHeight - 100) {
+                    item.style.opacity = '1';
+                    item.style.transform = 'translateY(0)';
+                }
+            });
+        }
+
+        window.addEventListener('scroll', handleScrollAnimation);
+        window.addEventListener('load', handleScrollAnimation);
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add initial sparkles
+            setTimeout(() => {
+                for (let i = 0; i < 5; i++) {
+                    setTimeout(createFloatingHeart, i * 1000);
+                }
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
